@@ -16,6 +16,16 @@ public class StrumentoStampaData {
         }
     }
 
+    //Metodo di Stampa della data nel formato yyyy-MM-dd
+    public static String getDataCastedToString1(Calendar data) {
+        if(data.get(Calendar.MONTH) == 11) {
+            return data.get(Calendar.YEAR)+"-12-"+data.get(Calendar.DAY_OF_MONTH);
+        }else {
+            //data.add(data.MONTH, 1);
+            return data.get(Calendar.YEAR)+"-"+(data.get(Calendar.MONTH)+1)+"-"+data.get(Calendar.DAY_OF_MONTH);
+        }
+    }
+
     //Metodo di Stampa dell'ora nel formato hh:mm:ss
     public static String getOraCastedToString(Calendar data) {
         String result = "";

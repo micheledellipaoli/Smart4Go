@@ -1,6 +1,7 @@
 package main.java.database;
 
 import main.java.beans.Noleggio;
+import main.java.beans.StrumentoStampaData;
 import main.java.beans.Utente;
 import main.java.beans.Veicolo;
 
@@ -9,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class NoleggioDAO {
 
@@ -31,7 +33,7 @@ public class NoleggioDAO {
 
             //codice per convertite il formato Date estratto dal Database nel formato Calendar compatibile con l'oggetto java Operazione
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            java.util.Date date = sdf.parse(rs.getString("data_inizio"));
+            Date date = sdf.parse(rs.getString("data_inizio"));
             Calendar data_inizio = Calendar.getInstance();
             data_inizio.setTime(date);
 
@@ -62,7 +64,7 @@ public class NoleggioDAO {
 
             //codice per convertite il formato Date estratto dal Database nel formato Calendar compatibile con l'oggetto java Operazione
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            java.util.Date date = sdf.parse(rs.getString("data_inizio"));
+            Date date = sdf.parse(rs.getString("data_inizio"));
             Calendar data_inizio = Calendar.getInstance();
             data_inizio.setTime(date);
 
@@ -99,14 +101,18 @@ public class NoleggioDAO {
         return maxCodice;
     }
 
-    public boolean registraNoleggio(Noleggio n) throws SQLException {
+    public boolean registraNoleggio(Noleggio n) throws SQLException, ParseException {
         Statement stmt = connection.createStatement();
 
-        java.sql.Date data_inizio = new java.sql.Date(n.getData_inizio().getTimeInMillis());
 
-        String sql = "INSERT INTO noleggio (codice_noleggio, data_inizio, durata, utente, veicolo)" +
-                " VALUES ('"+ n.getCodice() +"', '"+ data_inizio +"', '"+ n.getDurata() +"', '" +
-                 n.getUtente().getEmail() +"', '" + n.getVeicolo().getCodice() +"');";
+        String data_inizio = StrumentoStampaData.getDataCastedToString1(n.getData_inizio());
+        data_inizio = data_inizio +" " + StrumentoStampaData.getOraCastedToString(n.getData_inizio());
+
+        System.out.println(data_inizio);
+
+        String sql = "INSERT INTO noleggio (veicolo, utente, durata, data_inizio, codice_noleggio)" +
+                " VALUES ('"+ n.getVeicolo().getCodice() +"', '"+ n.getUtente().getEmail() +"', '"+ n.getDurata() +"', DATE'" +
+                 data_inizio +"', '" + n.getCodice() +"');";
 
         int intResult = stmt.executeUpdate(sql);
 

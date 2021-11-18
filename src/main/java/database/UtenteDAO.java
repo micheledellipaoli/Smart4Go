@@ -34,7 +34,7 @@ public class UtenteDAO {
             String cognome = rs.getString("cognome");
 
             //codice per convertite il formato Date estratto dal Database nel formato Calendar compatibile con l'oggetto java Operazione
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date date = sdf.parse(rs.getString("data_nascita"));
             Calendar data_nascita = Calendar.getInstance();
             data_nascita.setTime(date);
@@ -62,7 +62,7 @@ public class UtenteDAO {
             String cognome = rs.getString("cognome");
 
             //codice per convertite il formato Date estratto dal Database nel formato Calendar compatibile con l'oggetto java Operazione
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Date date = sdf.parse(rs.getString("data_nascita"));
             Calendar data_nascita = Calendar.getInstance();
             data_nascita.setTime(date);

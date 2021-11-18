@@ -30,10 +30,10 @@ public class Test {
 
         //utenteDAO.registraUtente(u);
         ArrayList<Utente> utenti = new ArrayList<Utente>();
-        utenteDAO.getAllUtenti();
+        utenti = utenteDAO.getAllUtenti();
         System.out.println("Lista utenti: \n" + utenti);
 
-        Veicolo v = new Auto("Panda", "1232411", "auto", "AX023DG", "Napoli", 15.00);
+        Veicolo v = new Auto("1232411", "Panda", "auto", "AX023DG", "Napoli", 15.00);
         VeicoloDAO veicoloDAO = new VeicoloDAO();
         //veicoloDAO.registraVeicolo(v);
         ArrayList<Veicolo> veicoli = veicoloDAO.getAllVeicoli();
@@ -50,7 +50,8 @@ public class Test {
         ArrayList<Noleggio> noleggiByUtente = noleggioDAO.getNoleggiByUtente(u.getEmail());
         for(Noleggio noleggio : noleggiByUtente){
             if(noleggio.isExpired()){
-
+                double daPagare = noleggio.getCostoNoleggio();
+                System.out.println("Noleggio da pagare: "+ daPagare);
             }
         }
 
