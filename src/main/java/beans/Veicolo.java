@@ -2,7 +2,6 @@ package main.java.beans;
 
 public class Veicolo {
     private String codice;
-    private String tipo;
     private String modello;
     private String marchio;
     private String targa;
@@ -11,9 +10,8 @@ public class Veicolo {
     private boolean carburante;
     private boolean patenteRichiesta;
 
-    public Veicolo(String modello, String codice, String tipo, boolean carburante, String marchio, double prezzoOrario, boolean patenteRichiesta, String targa, String comune) {
+    public Veicolo(String modello, String codice, boolean carburante, String marchio, double prezzoOrario, boolean patenteRichiesta, String targa, String comune) {
         this.codice = codice;
-        this.tipo = tipo;
         this.modello = modello;
         this.marchio = marchio;
         this.targa = targa;
@@ -44,10 +42,6 @@ public class Veicolo {
         return codice;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
     public String getModello() {
         return modello;
     }
@@ -76,10 +70,6 @@ public class Veicolo {
         return patenteRichiesta;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
     public void setTarga(String targa) {
         this.targa = targa;
     }
@@ -96,7 +86,6 @@ public class Veicolo {
     public String toString() {
         return "Veicolo{" +
                 "codice='" + codice + '\'' +
-                ", tipo='" + tipo + '\'' +
                 ", modello='" + modello + '\'' +
                 ", marchio='" + marchio + '\'' +
                 ", targa='" + targa + '\'' +

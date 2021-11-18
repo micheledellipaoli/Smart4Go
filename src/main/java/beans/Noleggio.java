@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 public class Noleggio {
 
-    private String codice;
+    private int codice;
     private Calendar data_inizio;
     private int durata;
     private Utente utente;
@@ -13,7 +13,7 @@ public class Noleggio {
     public Noleggio(){
     }
 
-    public Noleggio(String codice, Calendar data_inizio, int durata, Utente utente, Veicolo veicolo){
+    public Noleggio(int codice, Calendar data_inizio, int durata, Utente utente, Veicolo veicolo){
         this.codice = codice;
         this.data_inizio = data_inizio;
         this.durata = durata;
@@ -22,16 +22,27 @@ public class Noleggio {
     }
 
     public Boolean isExpired(){
-        boolean result = false;
+        boolean expired = false;
 
-        return result;
+        Calendar dataScadenza = this.data_inizio;
+        dataScadenza.add(Calendar.MINUTE, this.durata);
+
+        if(dataScadenza.before(Calendar.getInstance())){
+            expired = true;
+        }
+        return expired;
     }
 
-    public String getCodice() {
+    public double getCostoNoleggio(){
+        double costo = (this.durata/60)*this.getVeicolo().getPrezzoOrario();
+        return costo;
+    }
+
+    public int getCodice() {
         return codice;
     }
 
-    public void setCodice(String codice) {
+    public void setCodice(int codice) {
         this.codice = codice;
     }
 

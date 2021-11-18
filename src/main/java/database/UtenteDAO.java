@@ -49,6 +49,30 @@ public class UtenteDAO {
         return utenti;
     }
 
+    public Utente getUtenteByEmail(String emailUtente) throws SQLException, ParseException {
+        Utente u = new Utente();
+
+        Statement stmt = connection.createStatement();
+        String sql = "SELECT * FROM utente WHERE email='"+emailUtente+"'";
+
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()){
+            String nome = rs.getString("nome");
+            String email = rs.getString("email");
+            String cognome = rs.getString("cognome");
+
+            //codice per convertite il formato Date estratto dal Database nel formato Calendar compatibile con l'oggetto java Operazione
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = sdf.parse(rs.getString("data_nascita"));
+            Calendar data_nascita = Calendar.getInstance();
+            data_nascita.setTime(date);
+
+            String luogo_nascita = rs.getString("luogo_nascita");
+            u = new Utente(email, nome, cognome, data_nascita, luogo_nascita);
+        }
+        stmt.close();
+        return u;
+    }
 
     public void registraUtente(Utente u) throws SQLException {
         Statement stmt = connection.createStatement();

@@ -1,9 +1,8 @@
 package main.java;
 
-import main.java.beans.Patente;
-import main.java.beans.Utente;
-import main.java.beans.Veicolo;
+import main.java.beans.*;
 import main.java.database.DBConnection;
+import main.java.database.NoleggioDAO;
 import main.java.database.UtenteDAO;
 import main.java.database.VeicoloDAO;
 
@@ -23,7 +22,6 @@ public class Test {
         patenti.add(p);
 
         Calendar data_nascita = Calendar.getInstance();
-
         //Creazione utente
         Utente u = new Utente("mikeledellipaoli@gmail.com", "Michele", "Delli Paoli", data_nascita, "Marcianise");
 
@@ -31,14 +29,30 @@ public class Test {
         UtenteDAO utenteDAO = new UtenteDAO();
 
         //utenteDAO.registraUtente(u);
-        //utenteDAO.getAllUtenti();
+        ArrayList<Utente> utenti = new ArrayList<Utente>();
+        utenteDAO.getAllUtenti();
+        System.out.println("Lista utenti: \n" + utenti);
 
-        Veicolo v = new Veicolo("Panda", "1232411", "auto", true, "Fiat", 15.00, true, "AX023DG", "Napoli");
+        Veicolo v = new Auto("Panda", "1232411", "auto", "AX023DG", "Napoli", 15.00);
         VeicoloDAO veicoloDAO = new VeicoloDAO();
-        veicoloDAO.registraVeicolo(v);
+        //veicoloDAO.registraVeicolo(v);
         ArrayList<Veicolo> veicoli = veicoloDAO.getAllVeicoli();
-        System.out.println(veicoli);
+        System.out.println("Lista veicoli: \n" + veicoli);
 
+        NoleggioDAO noleggioDAO = new NoleggioDAO();
+        int lastCodiceNoleggio = noleggioDAO.getLastCodiceNoleggio();
+        int newCodice = lastCodiceNoleggio + 1;
+
+        Calendar now = java.util.Calendar.getInstance();
+        Noleggio n = new Noleggio(newCodice, now, 120, u, v);
+        noleggioDAO.registraNoleggio(n);
+
+        ArrayList<Noleggio> noleggiByUtente = noleggioDAO.getNoleggiByUtente(u.getEmail());
+        for(Noleggio noleggio : noleggiByUtente){
+            if(noleggio.isExpired()){
+
+            }
+        }
 
     }
 }
