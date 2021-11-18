@@ -3,8 +3,14 @@ package main.java.database;
 import main.java.beans.Utente;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class UtenteDAO {
 
@@ -15,21 +21,48 @@ public class UtenteDAO {
         connection = db.getConnetion();
     }
 
-    public boolean registraUtente(Utente u) throws SQLException {
+    public ArrayList<Utente> getAllUtenti() throws SQLException, ParseException {
+        ArrayList<Utente> utenti = new ArrayList<Utente>();
+
         Statement stmt = connection.createStatement();
+        String sql = "SELECT * FROM utente";
 
-        String sql = "INSERT INTO utente (email, nome, cognome, data_nascita, luogo_nascita)" +
-                " VALUES ("+ u.getEmail() +", "+ u.getNome() +", "+ u.getCognome() +", "+ u.getData_nascita() +", " +
-                ""+ u.getData_nascita() +");";
+        ResultSet rs = stmt.executeQuery(sql);
+        while(rs.next()){
+            String nome = rs.getString("nome");
+            String email = rs.getString("email");
+            String cognome = rs.getString("cognome");
 
-        int intResult = stmt.executeUpdate(sql);
+            //codice per convertite il formato Date estratto dal Database nel formato Calendar compatibile con l'oggetto java Operazione
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = sdf.parse(rs.getString("data_nascita"));
+            Calendar data_nascita = Calendar.getInstance();
+            data_nascita.setTime(date);
 
-        boolean result = false;
-        if(intResult == 1){
-            result = true;
+            String luogo_nascita = rs.getString("luogo_nascita");
+            Utente u = new Utente(email, nome, cognome, data_nascita, luogo_nascita);
+
+            utenti.add(u);
         }
         stmt.close();
 
-        return result;
+        return utenti;
+    }
+
+
+    public void registraUtente(Utente u) throws SQLException {
+        Statement stmt = connection.createStatement();
+
+        java.sql.Date data_nascita = new java.sql.Date(u.getData_nascita().getTimeInMillis());
+
+        String sql = "INSERT INTO utente (nome, email, cognome, data_nascita, luogo_nascita)" +
+                " VALUES ('"+ u.getNome() +"', '"+ u.getEmail() +"', '"+ u.getCognome() +"', '"+ data_nascita +"', '" +
+                 u.getLuogo_nascita() +"');";
+
+        System.out.println(sql);
+
+        stmt.executeUpdate(sql);
+
+        stmt.close();
     }
 }

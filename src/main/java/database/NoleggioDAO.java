@@ -29,7 +29,6 @@ public class NoleggioDAO {
             maxCodice = rs.getInt("MAX(codice");
         }
         stmt.close();
-
         return maxCodice;
     }
 
@@ -37,8 +36,8 @@ public class NoleggioDAO {
         Statement stmt = connection.createStatement();
 
         String sql = "INSERT INTO noleggio (codice, data_inizio, durata, utente, veicolo)" +
-                " VALUES ("+ n.getCodice() +", "+ n.getData_inizio() +", "+ n.getDurata() +", " +
-                ""+ n.getUtente().getEmail() +", " + n.getVeicolo().getCodice() +");";
+                " VALUES ('"+ n.getCodice() +"', '"+ n.getData_inizio() +"', '"+ n.getDurata() +"', '" +
+                 n.getUtente().getEmail() +"', '" + n.getVeicolo().getCodice() +"');";
 
         int intResult = stmt.executeUpdate(sql);
 

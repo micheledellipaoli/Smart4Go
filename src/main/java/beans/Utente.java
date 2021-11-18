@@ -10,7 +10,6 @@ public class Utente {
     private String cognome;
     private Calendar data_nascita;
     private String luogo_nascita;
-    private ArrayList<Noleggio> noleggi;
     private ArrayList<Patente> patenti;
 
     public Utente(){
@@ -22,6 +21,15 @@ public class Utente {
         this.cognome = cognome;
         this.data_nascita = data_nascita;
         this.luogo_nascita = luogo_nascita;
+    }
+
+    public Utente(String email, String nome, String cognome, Calendar data_nascita, String luogo_nascita, ArrayList<Patente> patenti){
+        this.email = email;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.data_nascita = data_nascita;
+        this.luogo_nascita = luogo_nascita;
+        this.patenti = patenti;
     }
 
     public String getEmail() {
@@ -73,7 +81,6 @@ public class Utente {
                 ", cognome='" + cognome + '\'' +
                 ", data_nascita=" + StrumentoStampaData.getDataCastedToString(this.data_nascita) +
                 ", luogo_nascita='" + luogo_nascita + '\'' +
-                ", noleggi=" + noleggi +
                 ", patenti=" + patenti +
                 '}';
     }
