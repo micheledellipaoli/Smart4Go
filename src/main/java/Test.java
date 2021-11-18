@@ -53,14 +53,14 @@ public class Test {
         Calendar now = java.util.Calendar.getInstance();
 
         Noleggio n1 = new Noleggio(newCodice, now, 120, u, v);
-        noleggioDAO.registraNoleggio(n1);
+        //noleggioDAO.registraNoleggio(n1);
 
         lastCodiceNoleggio = noleggioDAO.getLastCodiceNoleggio();
         newCodice = lastCodiceNoleggio + 1;
         now = java.util.Calendar.getInstance();
 
         Noleggio n2 = new Noleggio(newCodice, now, 1, u, v);
-        noleggioDAO.registraNoleggio(n2);
+        //noleggioDAO.registraNoleggio(n2);
 
 
 

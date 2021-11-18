@@ -12,7 +12,7 @@ public class DBConnection {
 
     public DBConnection(){
         this.url = "jdbc:postgresql://localhost:5432/postgres";
-        this.password = "mikidp96";
+        this.password = "";
         this.user = "postgres";
     }
 
