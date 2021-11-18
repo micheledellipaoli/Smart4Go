@@ -73,16 +73,12 @@ public class VeicoloDAO {
             String targa = rs.getString("targa");
             String comune = rs.getString("comune");
 
-            switch("tipo") {
-                case "auto":
-                    v = new Auto(codice, modello, marchio, targa, comune, prezzo_orario);
-                    break;
-                case "motorino":
-                    v = new Motorino(codice, modello, marchio, targa, comune, prezzo_orario);
-                    break;
-                case "bicicletta":
-                    v = new Bicicletta(codice, modello, marchio, comune, prezzo_orario);
-                    break;
+            if(tipo.equalsIgnoreCase("auto")) {
+                v = new Auto(codice, modello, marchio, targa, comune, prezzo_orario);
+            }else if(tipo.equalsIgnoreCase("motorino")) {
+                v = new Motorino(codice, modello, marchio, targa, comune, prezzo_orario);
+            }else if(tipo.equalsIgnoreCase("bicicletta")) {
+                v = new Bicicletta(codice, modello, marchio, comune, prezzo_orario);
             }
         }
         stmt.close();

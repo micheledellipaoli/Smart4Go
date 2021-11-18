@@ -78,6 +78,9 @@ public class NoleggioDAO {
 
             VeicoloDAO veicoloDAO = new VeicoloDAO();
             Veicolo veicolo = veicoloDAO.getVeicoloByCodice(codiceVeicolo);
+
+            Noleggio n = new Noleggio(codice, data_inizio, durata, utente, veicolo);
+            noleggi.add(n);
         }
         stmt.close();
         return noleggi;
@@ -107,8 +110,6 @@ public class NoleggioDAO {
 
         String data_inizio = StrumentoStampaData.getDataCastedToString1(n.getData_inizio());
         data_inizio = data_inizio +" " + StrumentoStampaData.getOraCastedToString(n.getData_inizio());
-
-        System.out.println(data_inizio);
 
         String sql = "INSERT INTO noleggio (veicolo, utente, durata, data_inizio, codice_noleggio)" +
                 " VALUES ('"+ n.getVeicolo().getCodice() +"', '"+ n.getUtente().getEmail() +"', '"+ n.getDurata() +"', DATE'" +

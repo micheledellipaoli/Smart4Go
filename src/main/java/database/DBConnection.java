@@ -12,9 +12,11 @@ public class DBConnection {
 
     public DBConnection(){
         this.url = "jdbc:postgresql://localhost:5432/postgres";
-        this.user = "postgres";
         this.password = "mikidp96";
+        this.user = "postgres";
     }
+
+
 
     public DBConnection(String url, String user, String password){
         this.url = url;

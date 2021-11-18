@@ -27,7 +27,7 @@ public class Noleggio {
         Calendar dataScadenza = this.data_inizio;
         dataScadenza.add(Calendar.MINUTE, this.durata);
 
-        if(dataScadenza.before(Calendar.getInstance())){
+        if(dataScadenza.after(Calendar.getInstance())){
             expired = true;
         }
         return expired;

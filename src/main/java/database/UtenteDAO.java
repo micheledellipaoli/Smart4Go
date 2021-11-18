@@ -50,7 +50,7 @@ public class UtenteDAO {
     }
 
     public Utente getUtenteByEmail(String emailUtente) throws SQLException, ParseException {
-        Utente u = new Utente();
+        Utente u = null;
 
         Statement stmt = connection.createStatement();
         String sql = "SELECT * FROM utente WHERE email='"+emailUtente+"'";
